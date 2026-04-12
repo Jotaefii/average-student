@@ -17,6 +17,7 @@ public class Main {
         double nota3 = sc.nextDouble();
 
         double media = (nota1 + nota2 + nota3) / 3;
+        System.out.println("Media: " + media);
 
         if (media >= 7){
             System.out.println("Aprovado!!");
