@@ -9,7 +9,7 @@ public class Main {
 
         do {
             System.out.println("[1] Cadastrar aluno");
-            System.out.println("[2] Consultar aluno");
+            System.out.println("[2] Consultar alunos");
             System.out.println("[0] Sair");
             System.out.print("Opcao: ");
 
@@ -18,13 +18,21 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                        if (contador < alunos.length) {
-                            System.out.print("Aluno: ");
-                            alunos[contador] = sc.nextLine();
-                            contador++;
-                        } else {
-                            System.out.println("Cadastro cheio!!");
-                        }
+                    if (contador < alunos.length) {
+                        System.out.print("Aluno: ");
+                        alunos[contador] = sc.nextLine();
+                        contador++;
+                    } else {
+                        System.out.println("Cadastro cheio!!");
+                    }
+                    System.out.println();
+                    break;
+
+                case 2:
+                    for (int i = 0; i < contador; i++) {
+                        System.out.println("Aluno(a): " + alunos[i]);
+                    }
+                    System.out.println();
                     break;
             }
         } while(opcao != 0);
