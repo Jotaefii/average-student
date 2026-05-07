@@ -1,3 +1,5 @@
+package br.com.lipe.sistemaescolar;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -48,7 +50,7 @@ public class Main {
                     int numero_do_aluno = sc.nextInt();
                     sc.nextLine();
 
-                    if (numero_do_aluno >= 1 && numero_do_aluno < alunos.size()){
+                    if (numero_do_aluno >= 1 && numero_do_aluno <= alunos.size()){
                         alunos.remove(numero_do_aluno - 1);
                         System.out.println("Aluno removido!");
                     } else {
