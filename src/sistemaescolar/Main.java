@@ -1,4 +1,4 @@
-package br.com.lipe.sistemaescolar;
+package sistemaescolar;
 
 import java.util.Scanner;
 import java.util.ArrayList;
