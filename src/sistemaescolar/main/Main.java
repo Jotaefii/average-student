@@ -1,10 +1,9 @@
 package sistemaescolar.main;
 
-import sistemaescolar.model.Alunos;
+import sistemaescolar.entities.Alunos;
 import sistemaescolar.service.CadastroAluno;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args){

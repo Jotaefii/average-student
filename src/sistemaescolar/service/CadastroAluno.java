@@ -1,6 +1,6 @@
 package sistemaescolar.service;
 
-import sistemaescolar.model.Alunos;
+import sistemaescolar.entities.Alunos;
 import java.util.ArrayList;
 
 public class CadastroAluno {

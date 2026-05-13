@@ -1,4 +1,4 @@
-package sistemaescolar.model;
+package sistemaescolar.entities;
 
 public class Alunos {
 
