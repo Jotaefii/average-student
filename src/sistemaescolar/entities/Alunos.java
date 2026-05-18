@@ -2,18 +2,24 @@ package sistemaescolar.entities;
 
 public class Alunos {
 
-    private String nome;
+    private String nomedoAluno;
+    private int codigoAluno;
     private double nota1;
     private double nota2;
 
-    public Alunos (String nome, double nota1, double nota2){
-        this.nome = nome;
+    public Alunos (String nome, double nota1, double nota2, int codigo){
+        this.nomedoAluno = nome;
+        this.codigoAluno = codigo;
         this.nota1 = nota1;
         this.nota2 = nota2;
     }
 
     public String getNome(){
-        return nome;
+        return nomedoAluno;
+    }
+
+    public int getCodigoAluno() {
+        return codigoAluno;
     }
 
     public double calcularMedia(){

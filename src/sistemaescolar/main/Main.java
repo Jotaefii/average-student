@@ -29,13 +29,16 @@ public class Main {
                     System.out.print("Aluno: ");
                     String nome = sc.nextLine();
 
+                    System.out.print("Codigo do aluno: ");
+                    int codigo = sc.nextInt();
+
                     System.out.print("Primeira nota: ");
                     double nota1 = sc.nextDouble();
 
                     System.out.print("Segunda nota: ");
                     double nota2 = sc.nextDouble();
 
-                    Alunos alunos = new Alunos(nome, nota1, nota2);
+                    Alunos alunos = new Alunos(nome, nota1, nota2, codigo);
 
                     cadastro.adicionarAluno(alunos);
                     break;

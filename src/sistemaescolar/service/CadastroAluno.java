@@ -20,6 +20,7 @@ public class CadastroAluno {
         }
         for (Alunos aluno: listaAlunos) {
             System.out.println("Aluno: " + aluno.getNome());
+            System.out.println("Codigo: " + aluno.getCodigoAluno());
             System.out.println("Média: " + aluno.calcularMedia());
             System.out.println("Situação: " + aluno.situacaoAluno());
             System.out.println("----------------------------");
