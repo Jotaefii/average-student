@@ -1,7 +1,7 @@
 package sistemaescolar.main;
 
 import sistemaescolar.entities.Alunos;
-import sistemaescolar.service.CadastroAluno;
+import sistemaescolar.service.CadastroService;
 
 import java.util.Scanner;
 
@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
-        CadastroAluno cadastro = new CadastroAluno();
+        CadastroService cadastro = new CadastroService();
 
         int opcao;
 

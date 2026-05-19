@@ -3,7 +3,7 @@ package sistemaescolar.service;
 import sistemaescolar.entities.Alunos;
 import java.util.ArrayList;
 
-public class CadastroAluno {
+public class CadastroService {
     ArrayList<Alunos> listaAlunos = new ArrayList<>();
 
     //CADASTRAR
