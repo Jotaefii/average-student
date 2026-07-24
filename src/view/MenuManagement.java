@@ -1,9 +1,11 @@
 package view;
 
+import repository.SchoolClassRepository;
+
 import java.util.Scanner;
 
 public class MenuManagement {
-    public static void menuManagement(Scanner sc) {
+    public static void menuManagement(Scanner sc, SchoolClassRepository classRepository) {
         System.out.println();
         System.out.println("=====================");
         System.out.println("     MENU GESTAO"     );
@@ -20,7 +22,14 @@ public class MenuManagement {
 
         switch (opcao){
             case 1:
-                // Implementar criar turma
+                System.out.print("Crie o nome da turma: ");
+                String nomeTurma = sc.nextLine();
+                System.out.print("Crie o numero da sala: ");
+                int sala = sc.nextInt();
+                sc.nextLine();
+
+                classRepository.addClass(nomeTurma, sala);
+                System.out.println("Turma criada!");
                 break;
         }
     }

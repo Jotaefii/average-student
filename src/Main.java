@@ -1,5 +1,6 @@
 import entities.User;
 import entities.enums.UserType;
+import repository.SchoolClassRepository;
 import repository.UserRepository;
 import service.AuthenticateLogin;
 import view.MenuManagement;
@@ -11,6 +12,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         UserRepository userRepository = new UserRepository();
+        SchoolClassRepository schoolClassRepository = new SchoolClassRepository();
 
         int opcao = 0;
         while (opcao != 2){
@@ -31,7 +33,7 @@ public class Main {
 
                     assert user != null;
                     if (user.getUserType() == UserType.GESTOR) {
-                        MenuManagement.menuManagement(sc);
+                        MenuManagement.menuManagement(sc, schoolClassRepository);
                     } else if (user.getUserType() == UserType.PROFESSOR) {
                         // Show professor menu
                     } else if (user.getUserType() == UserType.ALUNO) {
