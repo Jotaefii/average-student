@@ -16,4 +16,11 @@ public class Student extends User {
     public void setSchoolClass(SchoolClass schoolClass) {
         this.schoolClass = schoolClass;
     }
+
+    @Override
+    public String toString() {
+        return "Aluno(a): " + this.getNome()
+                + "\nTurma: " + this.getCpf()
+                + "\n";
+    }
 }

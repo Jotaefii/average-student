@@ -1,5 +1,6 @@
 package view;
 
+import entities.SchoolClass;
 import entities.Student;
 import entities.Teacher;
 import entities.enums.UserType;
@@ -75,10 +76,33 @@ public class MenuManagement {
                         int salaEscolhida = sc.nextInt();
                         sc.nextLine();
 
-                        Teacher teacher = new Teacher(nomeProfessor, cpfProfessor, senhaProfessor, UserType.PROFESSOR);
-                        managementService.cadastrarProfessor(teacher, salaEscolhida);
+                        Teacher professor = new Teacher(nomeProfessor, cpfProfessor, senhaProfessor, UserType.PROFESSOR);
+                        managementService.cadastrarProfessor(professor, salaEscolhida);
                     } else {
                         System.out.println("Opção inválida!");
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("1 - Listar turmas");
+                    System.out.println("2 - Listar professores");
+                    System.out.println("3 - Listar alunos");
+                    int opcaoListar = sc.nextInt();
+
+                    if (opcaoListar == 1) {
+                        for (SchoolClass turma : managementService.listarTurmas()) {
+                            System.out.println(turma);
+                        }
+                    } else if (opcaoListar == 2) {
+                        for (Teacher professor :  managementService.listarProfessores()) {
+                            System.out.println(professor);
+                        }
+                    } else if (opcaoListar == 3) {
+                        for (Student estudante : managementService.listarEstudantes()) {
+                            System.out.println(estudante);
+                        }
+                    } else {
+                        System.out.println("Opção invalida!");
                     }
                     break;
             }

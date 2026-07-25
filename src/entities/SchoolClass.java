@@ -50,4 +50,13 @@ public class SchoolClass {
     public void removerEstudante(Student student) {
         this.estudantes.remove(student);
     }
+
+    @Override
+    public String toString() {
+        return "Turma: " + this.nomeTurma
+                + "\nSala:  " + this.sala
+                + "\nProfessor(a): " + this.professor
+                + "\nQuantidade de estudantes: " + this.estudantes.size()
+                + "\n";
+    }
 }
