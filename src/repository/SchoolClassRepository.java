@@ -12,7 +12,7 @@ public class SchoolClassRepository {
         return classes;
     }
 
-    public void addClass(String nome, int sala) {
+    public void adicionarClasse(String nome, int sala) {
         classes.add(new SchoolClass(nome, sala));
     }
 
@@ -20,4 +20,12 @@ public class SchoolClassRepository {
         return classes;
     }
 
+    public SchoolClass buscarPorSala(int sala) {
+        for (SchoolClass classe : classes) {
+            if (classe.getSala() == sala) {
+                return classe;
+            }
+        }
+        return null;
+    }
 }

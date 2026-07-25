@@ -6,9 +6,9 @@ import java.util.List;
 public class SchoolClass {
     private String nomeTurma;
     private Integer sala;
-    private Teacher teacher;
+    private Teacher professor;
 
-    private List<Student> students = new ArrayList<>();
+    private List<Student> estudantes = new ArrayList<>();
 
     public SchoolClass(String nomeTurma, Integer sala) {
         this.nomeTurma = nomeTurma;
@@ -32,22 +32,22 @@ public class SchoolClass {
     }
 
     public Teacher getTeacher() {
-        return teacher;
+        return professor;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setTeacher(Teacher professor) {
+        this.professor = professor;
     }
 
-    public List<Student> getStudents() {
-        return students;
+    public List<Student> getEstudantes() {
+        return estudantes;
     }
 
-    public void addStudent(Student student) {
-        this.students.add(student);
+    public void adicionarEstudante(Student student) {
+        this.estudantes.add(student);
     }
 
-    public void removeStudent(Student student) {
-        this.students.remove(student);
+    public void removerEstudante(Student student) {
+        this.estudantes.remove(student);
     }
 }

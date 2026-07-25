@@ -14,7 +14,7 @@ public class UserRepository {
         users.add(new Management("Joao", "admin", 123, UserType.GESTOR));
     }
 
-    public void salvar(User user) {
+    public void adicionar(User user) {
         users.add(user);
     }
 

@@ -6,13 +6,13 @@ public abstract class User {
     private String nome;
     private String cpf;
     private int senha;
-    private UserType userType;
+    private UserType tipoUsuario;
 
-    public User(String nome, String cpf, int senha, UserType userType) {
+    public User(String nome, String cpf, int senha, UserType tipoUsuario) {
         this.nome = nome;
         this.cpf = cpf;
         this.senha = senha;
-        this.userType = userType;
+        this.tipoUsuario = tipoUsuario;
     }
 
     public String getNome() {
@@ -39,11 +39,11 @@ public abstract class User {
         this.senha = senha;
     }
 
-    public UserType getUserType() {
-        return userType;
+    public UserType getTipoUsuario() {
+        return tipoUsuario;
     }
 
-    public void setUserType(UserType userType) {
-        this.userType = userType;
+    public void setTipoUsuario(UserType tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 }
