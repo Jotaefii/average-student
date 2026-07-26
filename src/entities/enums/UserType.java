@@ -1,7 +1,7 @@
 package entities.enums;
 
 public enum UserType {
-    ALUNO,
+    ESTUDANTE,
     PROFESSOR,
     GESTOR
 }

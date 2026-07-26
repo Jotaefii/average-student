@@ -6,13 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SchoolClassRepository {
-    private List<SchoolClass> classes = new ArrayList<>();
+    private final List<SchoolClass> classes = new ArrayList<>();
 
-    public List<SchoolClass> getClasses() {
-        return classes;
-    }
-
-    public void adicionarClasse(String nome, int sala) {
+    public void adicionarTurma(String nome, int sala) {
         classes.add(new SchoolClass(nome, sala));
     }
 
@@ -27,5 +23,26 @@ public class SchoolClassRepository {
             }
         }
         return null;
+    }
+
+    public boolean editarTurma(String nome, int sala) {
+        for (SchoolClass turma : classes) {
+            if (turma.getSala() == sala) {
+                turma.setNomeTurma(nome);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean deletarTurma(int sala) {
+
+        for (SchoolClass schoolClass : classes) {
+            if (schoolClass.getSala() == sala) {
+                classes.remove(schoolClass);
+                return true;
+            }
+        }
+        return false;
     }
 }

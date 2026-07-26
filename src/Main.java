@@ -3,8 +3,8 @@ import entities.enums.UserType;
 import repository.SchoolClassRepository;
 import repository.UserRepository;
 import service.AuthenticateLogin;
-import service.ManagementService;
-import view.MenuManagement;
+import service.SchoolClassService;
+import view.management.ManagementMenu;
 
 import java.util.Scanner;
 
@@ -12,9 +12,14 @@ public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
+        // Repositories
         UserRepository userRepository = new UserRepository();
         SchoolClassRepository schoolClassRepository = new SchoolClassRepository();
-        ManagementService managementService = new ManagementService(userRepository, schoolClassRepository);
+        // Service
+        SchoolClassService schoolClassService = new SchoolClassService(schoolClassRepository);
+        // Menus
+        ManagementMenu managementMenu = new ManagementMenu(schoolClassService);
+
 
         int opcao = 0;
         while (opcao != 2){
@@ -35,10 +40,10 @@ public class Main {
 
                     assert user != null;
                     if (user.getTipoUsuario() == UserType.GESTOR) {
-                        MenuManagement.menuManagement(sc, managementService, schoolClassRepository);
+                        managementMenu.start(sc);
                     } else if (user.getTipoUsuario() == UserType.PROFESSOR) {
                         // Show professor menu
-                    } else if (user.getTipoUsuario() == UserType.ALUNO) {
+                    } else if (user.getTipoUsuario() == UserType.ESTUDANTE) {
                         // Show student menu
                     } else {
                         System.out.println("Tipo de usuário desconhecido!");
