@@ -20,7 +20,6 @@ public class Main {
         // Menus
         ManagementMenu managementMenu = new ManagementMenu(schoolClassService);
 
-
         int opcao = 0;
         while (opcao != 2){
             System.out.println("1 - Entrar");
