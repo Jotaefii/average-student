@@ -1,14 +1,17 @@
 package view.management;
 
 import service.SchoolClassService;
+import service.StudentService;
 
 import java.util.Scanner;
 
 public class ManagementMenu {
     private final ClassMenu classMenu;
+    private final StudentManagementMenu studentManagementMenu;
 
-    public ManagementMenu(SchoolClassService classService) {
+    public ManagementMenu(SchoolClassService classService, StudentService studentService) {
         this.classMenu = new ClassMenu(classService);
+        this.studentManagementMenu = new StudentManagementMenu(studentService,  classService);
     }
 
     public void start(Scanner sc) {
@@ -27,6 +30,7 @@ public class ManagementMenu {
 
             switch (opcao) {
                 case 1 -> classMenu.start(sc);
+                case 2 -> studentManagementMenu.start(sc);
             }
         }
     }

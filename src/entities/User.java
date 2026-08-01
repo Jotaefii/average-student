@@ -1,18 +1,14 @@
 package entities;
 
-import entities.enums.UserType;
-
-public abstract class User {
+public class User {
     private String nome;
     private String cpf;
     private int senha;
-    private UserType tipoUsuario;
 
-    public User(String nome, String cpf, int senha, UserType tipoUsuario) {
+    public User(String nome, String cpf, int senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.senha = senha;
-        this.tipoUsuario = tipoUsuario;
     }
 
     public String getNome() {
@@ -39,11 +35,4 @@ public abstract class User {
         this.senha = senha;
     }
 
-    public UserType getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(UserType tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
-    }
 }

@@ -1,12 +1,10 @@
 package entities;
 
-import entities.enums.UserType;
-
 public class Teacher extends User {
     private SchoolClass classe;
 
-    public Teacher(String nome, String cpf, int senha, UserType userType) {
-        super(nome, cpf, senha, userType);
+    public Teacher(String nome, String cpf, int senha) {
+        super(nome, cpf, senha);
     }
 
     public SchoolClass getClasse() {
