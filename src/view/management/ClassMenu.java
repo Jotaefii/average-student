@@ -56,7 +56,7 @@ public class ClassMenu {
 
         SchoolClass turma = turmaService.buscarTurma(salaBusca);
 
-        System.out.println(turma);
+        System.out.println(turma.toString());
     }
 
     private void listClasses() {

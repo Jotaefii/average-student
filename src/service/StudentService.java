@@ -15,6 +15,7 @@ public class StudentService {
 
     public void addStudent(String nome, String cpf, int senha, SchoolClass schoolClass) {
         Student student = new Student(nome, cpf, senha, schoolClass);
+        schoolClass.adicionarEstudante(student);
         studentRepository.addStudent(student);
     }
 

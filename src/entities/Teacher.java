@@ -3,8 +3,9 @@ package entities;
 public class Teacher extends User {
     private SchoolClass classe;
 
-    public Teacher(String nome, String cpf, int senha) {
+    public Teacher(String nome, String cpf, int senha, SchoolClass classe) {
         super(nome, cpf, senha);
+        this.classe = classe;
     }
 
     public SchoolClass getClasse() {
@@ -17,8 +18,9 @@ public class Teacher extends User {
 
     @Override
     public String toString() {
-        return "Nome: " + this.getNome()
-                + "Turma: " + this.classe
+        return "CPF: " + getCpf()
+                + "Nome: " + this.getNome()
+                + "\nTurma: " + getClasse().getNomeTurma() + " - " + getClasse().getSala()
                 + "\n";
     }
 }

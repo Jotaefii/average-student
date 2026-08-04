@@ -53,10 +53,10 @@ public class SchoolClass {
 
     @Override
     public String toString() {
-        return "Turma: " + this.nomeTurma
-                + "\nSala:  " + this.sala
-                + "\nProfessor(a): " + this.professor
-                + "\nQuantidade de estudantes: " + this.estudantes.size()
+        return "Turma: " + getNomeTurma()
+                + "\nSala:  " + getSala()
+                + "\nProfessor(a): " + (getTeacher() != null ? getTeacher().getNome() : "Sem professor")
+                + "\nQuantidade de estudantes: " + getEstudantes().size()
                 + "\n";
     }
 }
