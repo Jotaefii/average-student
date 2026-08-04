@@ -19,7 +19,7 @@ public class Teacher extends User {
     @Override
     public String toString() {
         return "CPF: " + getCpf()
-                + "Nome: " + this.getNome()
+                + "\nNome: " + this.getNome()
                 + "\nTurma: " + getClasse().getNomeTurma() + " - " + getClasse().getSala()
                 + "\n";
     }

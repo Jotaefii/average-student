@@ -130,11 +130,11 @@ public class TeacherManagementMenu {
             System.out.println("Professor(a) não encontrado!");
             return;
         }
-        System.out.println(teacher);
+        System.out.print(teacher);
         System.out.println("Senha: ********");
 
         System.out.println();
-        System.out.print("Tem certeza que deseja excluir " + teacher.getNome() + "? ");
+        System.out.print("Tem certeza que deseja excluir " + teacher.getNome() + "? (S/N): ");
         char escolha = sc.next().charAt(0);
 
         if (escolha == 'N' || escolha == 'n') {

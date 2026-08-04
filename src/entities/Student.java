@@ -18,8 +18,9 @@ public class Student extends User {
 
     @Override
     public String toString() {
-        return "Aluno(a): " + getNome()
-                + "\nCPF: " + getCpf()
-                + "\nTurma: " + getSchoolClass().getNomeTurma() + " - " + getSchoolClass().getSala();
+        return "CPF: " + getCpf()
+                + "\nAluno(a): " + getNome()
+                + "\nTurma: " + getSchoolClass().getNomeTurma() + " - " + getSchoolClass().getSala()
+                + "\n";
     }
 }
