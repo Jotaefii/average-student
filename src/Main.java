@@ -18,8 +18,8 @@ public class Main {
         TeacherRepository teacherRepository = new TeacherRepository();
         // Service
         SchoolClassService schoolClassService = new SchoolClassService(schoolClassRepository);
-        StudentService studentService = new StudentService(studentRepository);
-        TeacherService teacherService = new TeacherService(teacherRepository);
+        StudentService studentService = new StudentService(studentRepository, schoolClassRepository);
+        TeacherService teacherService = new TeacherService(teacherRepository, schoolClassRepository);
         // Menus
         ManagementMenu managementMenu = new ManagementMenu(schoolClassService, studentService, teacherService);
 

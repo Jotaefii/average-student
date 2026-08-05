@@ -2,15 +2,18 @@ package service;
 
 import entities.SchoolClass;
 import entities.Student;
+import repository.SchoolClassRepository;
 import repository.StudentRepository;
 
 import java.util.List;
 
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final SchoolClassRepository schoolClassRepository;
 
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, SchoolClassRepository schoolClassRepository) {
         this.studentRepository = studentRepository;
+        this.schoolClassRepository = schoolClassRepository;
     }
 
     public void addStudent(String nome, String cpf, int senha, SchoolClass schoolClass) {
@@ -40,6 +43,16 @@ public class StudentService {
     }
 
     public boolean deleteStudent(String cpf) {
+
+        Student student = studentRepository.searchStudentByCpf(cpf);
+
+        if (student == null) {
+            return false;
+        }
+
+        for (SchoolClass schoolClass : schoolClassRepository.listClasses()) {
+            schoolClass.getEstudantes().remove(student);
+        }
         return studentRepository.deleteStudent(cpf);
     }
 }

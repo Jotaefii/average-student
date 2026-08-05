@@ -2,15 +2,18 @@ package service;
 
 import entities.SchoolClass;
 import entities.Teacher;
+import repository.SchoolClassRepository;
 import repository.TeacherRepository;
 
 import java.util.List;
 
 public class TeacherService {
     private final TeacherRepository teacherRepository;
+    private final SchoolClassRepository schoolClassRepository;
 
-    public TeacherService(TeacherRepository teacherRepository) {
+    public TeacherService(TeacherRepository teacherRepository, SchoolClassRepository schoolClassRepository) {
         this.teacherRepository = teacherRepository;
+        this.schoolClassRepository = schoolClassRepository;
     }
 
     public void addTeacher(String nome, String cpf, int senha, SchoolClass schoolClass) {
@@ -36,6 +39,17 @@ public class TeacherService {
     }
 
     public boolean deleteTeacher(String cpf) {
+        Teacher teacher = teacherRepository.searchTeacherByCpf(cpf);
+
+        if (teacher == null) {
+            return false;
+        }
+
+        for (SchoolClass schoolClass : schoolClassRepository.listClasses()) {
+            if (schoolClass.getTeacher() != null && schoolClass.getTeacher().equals(teacher)) {
+                schoolClass.setTeacher(null);
+            }
+        }
         return teacherRepository.deleteTeacher(cpf);
     }
 }
