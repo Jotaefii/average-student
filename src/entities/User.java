@@ -1,9 +1,13 @@
 package entities;
 
+import entities.enums.UserRole;
+
 public class User {
     private String nome;
     private String cpf;
     private int senha;
+
+    private UserRole role;
 
     public User(String nome, String cpf, int senha) {
         this.nome = nome;
@@ -35,4 +39,11 @@ public class User {
         this.senha = senha;
     }
 
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
 }

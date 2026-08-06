@@ -20,12 +20,19 @@ public class StudentManagementMenu {
         int opcao = 1;
 
         while (opcao != 0) {
+            System.out.println("=====================================");
+            System.out.println("          GERENCIAR ESTUDANTES       ");
+            System.out.println("=====================================");
+
             System.out.println("1 - Cadastrar Aluno(a)");
             System.out.println("2 - Buscar Aluno(a)");
             System.out.println("3 - Listar Aluno(a)");
             System.out.println("4 - Atualizar Aluno(a)");
             System.out.println("5 - Remover Aluno(a)");
             System.out.println("0 - Voltar");
+
+            System.out.println("=====================================");
+            System.out.print("Escolha uma opção: ");
             opcao = sc.nextInt();
             sc.nextLine();
 

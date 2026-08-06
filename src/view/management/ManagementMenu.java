@@ -21,13 +21,17 @@ public class ManagementMenu {
         int opcao = 1;
 
         while (opcao != 0) {
-            System.out.println("\n===== MENU GESTOR =====");
+            System.out.println("=====================================");
+            System.out.println("            MENU DO GESTOR           ");
+            System.out.println("=====================================");
+
             System.out.println("1 - Gerenciar Turmas");
             System.out.println("2 - Gerenciar Alunos");
             System.out.println("3 - Gerenciar Professores");
             System.out.println("0 - Voltar");
-            System.out.print("Escolha: ");
 
+            System.out.println("=====================================");
+            System.out.print("Escolha uma opção: ");
             opcao = sc.nextInt();
             sc.nextLine();
 

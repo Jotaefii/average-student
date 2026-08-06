@@ -2,6 +2,7 @@ package service;
 
 import entities.SchoolClass;
 import entities.Teacher;
+import entities.enums.UserRole;
 import repository.SchoolClassRepository;
 import repository.TeacherRepository;
 
@@ -18,6 +19,7 @@ public class TeacherService {
 
     public void addTeacher(String nome, String cpf, int senha, SchoolClass schoolClass) {
         Teacher teacher = new Teacher(nome, cpf, senha, schoolClass);
+        teacher.setRole(UserRole.TEACHER);
         schoolClass.setTeacher(teacher);
         teacherRepository.addTeacher(teacher);
     }

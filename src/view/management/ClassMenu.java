@@ -16,7 +16,10 @@ public class ClassMenu {
         int opcao = 1;
 
         while (opcao != 0) {
-            System.out.println("\n===== GERENCIAR TURMAS =====");
+            System.out.println("=====================================");
+            System.out.println("            GERENCIAR TURMAS         ");
+            System.out.println("=====================================");
+
             System.out.println("1 - Criar Turma");
             System.out.println("2 - Buscar Turma");
             System.out.println("3 - Listar Turmas");
@@ -24,6 +27,8 @@ public class ClassMenu {
             System.out.println("5 - Excluir Turma");
             System.out.println("0 - Voltar");
 
+            System.out.println("=====================================");
+            System.out.print("Escolha uma opção: ");
             opcao = sc.nextInt();
             sc.nextLine();
 

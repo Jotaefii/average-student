@@ -20,12 +20,19 @@ public class TeacherManagementMenu {
         int opcao = 1;
 
         while (opcao != 0) {
+            System.out.println("=====================================");
+            System.out.println("          GERENCIAR PROFESSORES      ");
+            System.out.println("=====================================");
+
             System.out.println("1 - Cadastrar Professor(a)");
             System.out.println("2 - Buscar Professor(a)");
             System.out.println("3 - Listar Professor(a)");
             System.out.println("4 - Atualizar Professor(a)");
             System.out.println("5 - Remover Professor(a)");
             System.out.println("0 - Voltar");
+
+            System.out.println("=====================================");
+            System.out.print("Escolha uma opção: ");
             opcao = sc.nextInt();
             sc.nextLine();
 
