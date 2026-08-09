@@ -1,7 +1,9 @@
 package entities;
 
 public class Student extends User {
+
     private SchoolClass schoolClass;
+    private Bulletin bulletin;
 
     public Student(String nome, String cpf, int senha, SchoolClass schoolClass) {
         super(nome, cpf, senha);
@@ -14,6 +16,14 @@ public class Student extends User {
 
     public void setSchoolClass(SchoolClass schoolClass) {
         this.schoolClass = schoolClass;
+    }
+
+    public Bulletin getBulletin() {
+        return bulletin;
+    }
+
+    public void setBulletin(Bulletin bulletin) {
+        this.bulletin = bulletin;
     }
 
     @Override

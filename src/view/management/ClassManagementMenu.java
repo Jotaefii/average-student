@@ -5,10 +5,10 @@ import service.SchoolClassService;
 
 import java.util.Scanner;
 
-public class ClassMenu {
+public class ClassManagementMenu {
     private final SchoolClassService turmaService;
 
-    public ClassMenu(SchoolClassService classService) {
+    public ClassManagementMenu(SchoolClassService classService) {
         this.turmaService = classService;
     }
 

@@ -1,5 +1,6 @@
 package service;
 
+import entities.Bulletin;
 import entities.SchoolClass;
 import entities.Student;
 import entities.enums.UserRole;
@@ -19,8 +20,14 @@ public class StudentService {
 
     public void addStudent(String nome, String cpf, int senha, SchoolClass schoolClass) {
         Student student = new Student(nome, cpf, senha, schoolClass);
+
         student.setRole(UserRole.STUDENT);
         schoolClass.adicionarEstudante(student);
+
+        Bulletin bulletin = new Bulletin();
+        student.setBulletin(bulletin);
+        bulletin.setStudent(student);
+
         studentRepository.addStudent(student);
     }
 

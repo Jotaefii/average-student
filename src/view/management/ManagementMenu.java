@@ -7,12 +7,12 @@ import service.TeacherService;
 import java.util.Scanner;
 
 public class ManagementMenu {
-    private final ClassMenu classMenu;
+    private final ClassManagementMenu classManagementMenu;
     private final StudentManagementMenu studentManagementMenu;
     private final TeacherManagementMenu teacherManagementMenu;
 
     public ManagementMenu(SchoolClassService classService, StudentService studentService, TeacherService teacherService) {
-        this.classMenu = new ClassMenu(classService);
+        this.classManagementMenu = new ClassManagementMenu(classService);
         this.studentManagementMenu = new StudentManagementMenu(studentService,  classService);
         this.teacherManagementMenu = new TeacherManagementMenu(teacherService, classService);
     }
@@ -26,8 +26,8 @@ public class ManagementMenu {
             System.out.println("=====================================");
 
             System.out.println("1 - Gerenciar Turmas");
-            System.out.println("2 - Gerenciar Alunos");
-            System.out.println("3 - Gerenciar Professores");
+            System.out.println("2 - Gerenciar Professores");
+            System.out.println("3 - Gerenciar Alunos");
             System.out.println("0 - Voltar");
 
             System.out.println("=====================================");
@@ -36,9 +36,10 @@ public class ManagementMenu {
             sc.nextLine();
 
             switch (opcao) {
-                case 1 -> classMenu.start(sc);
-                case 2 -> studentManagementMenu.start(sc);
-                case 3 -> teacherManagementMenu.start(sc);
+                case 1 -> classManagementMenu.start(sc);
+                case 2 -> teacherManagementMenu.start(sc);
+                case 3 -> studentManagementMenu.start(sc);
+                default -> opcao = 0;
             }
         }
     }

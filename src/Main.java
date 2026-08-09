@@ -1,13 +1,12 @@
+import entities.Teacher;
 import entities.User;
 import repository.ManagerRepository;
 import repository.SchoolClassRepository;
 import repository.StudentRepository;
 import repository.TeacherRepository;
-import service.AuthenticateLogin;
-import service.SchoolClassService;
-import service.StudentService;
-import service.TeacherService;
+import service.*;
 import view.management.ManagementMenu;
+import view.teacher.TeacherMenu;
 
 import java.util.Scanner;
 
@@ -20,13 +19,13 @@ public class Main {
         SchoolClassRepository schoolClassRepository = new SchoolClassRepository();
         StudentRepository studentRepository = new StudentRepository();
         TeacherRepository teacherRepository = new TeacherRepository();
+
         // Service
+        AuthenticateLogin authenticateLogin = new AuthenticateLogin(managerRepository, teacherRepository, studentRepository);
         SchoolClassService schoolClassService = new SchoolClassService(schoolClassRepository);
         StudentService studentService = new StudentService(studentRepository, schoolClassRepository);
         TeacherService teacherService = new TeacherService(teacherRepository, schoolClassRepository);
-        AuthenticateLogin authenticateLogin = new AuthenticateLogin(managerRepository, teacherRepository, studentRepository);
-        // Menus
-        ManagementMenu managementMenu = new ManagementMenu(schoolClassService, studentService, teacherService);
+        BulletinService bulletinService = new BulletinService();
 
        int opcao = 1;
 
@@ -46,9 +45,24 @@ public class Main {
                    User user = authenticateLogin.login(cpf, password);
 
                    switch (user.getRole()) {
-                       case MANAGER -> managementMenu.start(sc);
+                       case MANAGER:
+                           ManagementMenu managementMenu = new ManagementMenu(schoolClassService, studentService, teacherService);
+                           managementMenu.start(sc);
+                           break;
+                       case TEACHER:
+                           Teacher teacher = (Teacher) user;
+                           TeacherMenu teacherMenu = new TeacherMenu(bulletinService, studentService, teacher);
+                           teacherMenu.start(sc);
+                           break;
                    }
                    break;
+
+               case 2:
+                   System.out.println("Finalizando...");
+                   break;
+
+               default:
+                   System.out.println("Opção inválida!");
            }
        }
     }

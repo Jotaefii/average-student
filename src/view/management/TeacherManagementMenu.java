@@ -39,7 +39,7 @@ public class TeacherManagementMenu {
             switch (opcao) {
                 case 1 -> registerTeacher(sc);
                 case 2 -> searchTeacher(sc);
-                case 3 -> listTeacher(sc);
+                case 3 -> listTeacher();
                 case 4 -> updateTeacher(sc);
                 case 5 -> deleteTeacher(sc);
                 default -> opcao = 0;
@@ -72,7 +72,7 @@ public class TeacherManagementMenu {
         System.out.println(teacher.toString());
     }
 
-    private void listTeacher(Scanner sc) {
+    private void listTeacher() {
         for (Teacher teacher : teacherService.teacherList()) {
             System.out.println(teacher.getNome() + " | " + teacher.getClasse().getNomeTurma() + " - " + teacher.getClasse().getSala());
         }
