@@ -1,5 +1,6 @@
 package view.teacher;
 
+import entities.Bulletin;
 import entities.Student;
 import service.BulletinService;
 import service.StudentService;
@@ -19,6 +20,7 @@ public class GradeMenu {
         int opcao = 1;
 
         while (opcao != 0) {
+            System.out.println();
             System.out.println("╔═══════════════════════════════════════════╗");
             System.out.println("            GERENCIAR NOTAS                  ");
             System.out.println("╚═══════════════════════════════════════════╝");
@@ -44,8 +46,44 @@ public class GradeMenu {
                         break;
                     }
 
-                    System.out.print("Escolher o bimestre (1 - 4): ");
+                    Bulletin bulletin = student.getBulletin();
+
+                    System.out.println("\nAluno(a): " + student.getNome());
+                    System.out.println("---------------------------------------------");
+                    System.out.println("\nBIMESTRES DISPONÍVEIS");
+                    System.out.println("---------------------------------------------");
+
+                    if (bulletin.getFirstGrade() == null) {
+                        System.out.println("[1] 1° Bimestre");
+                    }
+                    if (bulletin.getSecondGrade() == null) {
+                        System.out.println("[2] 2° Bimestre");
+                    }
+                    if (bulletin.getThirdGrade() == null) {
+                        System.out.println("[3] 3° Bimestre");
+                    }
+                    if (bulletin.getFourthGrade() == null) {
+                        System.out.println("[4] 4° Bimestre");
+                    }
+
+                    System.out.println("---------------------------------------------");
+
+                    System.out.print("Escolha o bimestre: ");
                     int monthPeriod = sc.nextInt();
+
+                    boolean available = false;
+                    switch (monthPeriod) {
+                        case 1 -> available = bulletin.getFirstGrade() == null;
+                        case 2 -> available = bulletin.getSecondGrade() == null;
+                        case 3 -> available = bulletin.getThirdGrade() == null;
+                        case 4 -> available = bulletin.getFourthGrade() == null;
+                        default -> System.out.println("Bimestre inválido!");
+                    }
+
+                    if (!available) {
+                        System.out.println("Esse bimestre já possui uma nota!");
+                        break;
+                    }
 
                     System.out.print("Nota do " + monthPeriod + " bimestre: ");
                     double note = sc.nextDouble();

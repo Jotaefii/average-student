@@ -16,9 +16,10 @@ public class ClassManagementMenu {
         int opcao = 1;
 
         while (opcao != 0) {
-            System.out.println("=====================================");
-            System.out.println("            GERENCIAR TURMAS         ");
-            System.out.println("=====================================");
+            System.out.println();
+            System.out.println("╔═══════════════════════════════════════════╗");
+            System.out.println("            GERENCIAR TURMAS                 ");
+            System.out.println("╚═══════════════════════════════════════════╝");
 
             System.out.println("1 - Criar Turma");
             System.out.println("2 - Buscar Turma");
@@ -27,7 +28,7 @@ public class ClassManagementMenu {
             System.out.println("5 - Excluir Turma");
             System.out.println("0 - Voltar");
 
-            System.out.println("=====================================");
+            System.out.println("═════════════════════════════════════════════");
             System.out.print("Escolha uma opção: ");
             opcao = sc.nextInt();
             sc.nextLine();
@@ -53,27 +54,38 @@ public class ClassManagementMenu {
         int sala = sc.nextInt();
 
         turmaService.criarTurma(nomeTurma, sala);
+        System.out.println("Turma criada com sucesso!");
     }
 
     private void searchClass(Scanner sc) {
         System.out.print("Buscar por sala: ");
         int salaBusca = sc.nextInt();
 
+        System.out.println("---------------------------------------------");
+
         SchoolClass turma = turmaService.buscarTurma(salaBusca);
 
-        System.out.print(turma.toString());
+        System.out.println(turma.toString());
+        System.out.println("---------------------------------------------");
     }
 
     private void listClasses() {
+        System.out.println("---------------------------------------------");
+
         for (SchoolClass turma : turmaService.listarTurmas()) {
             System.out.println(turma);
+            System.out.println();
         }
+
+        System.out.println("---------------------------------------------");
     }
 
     private void updateClass(Scanner sc) {
         System.out.print("Buscar por sala: ");
         int salaBusca = sc.nextInt();
         sc.nextLine();
+
+        System.out.println("---------------------------------------------");
 
         SchoolClass turma = turmaService.buscarTurma(salaBusca);
         if (turma == null) {
@@ -97,6 +109,8 @@ public class ClassManagementMenu {
         System.out.print("Buscar por sala: ");
         int salaBusca = sc.nextInt();
 
+        System.out.println("---------------------------------------------");
+
         SchoolClass turma = turmaService.buscarTurma(salaBusca);
         if (turma == null) {
             System.out.println("Nenhum Turma encontrada.");
@@ -104,6 +118,8 @@ public class ClassManagementMenu {
         }
 
         System.out.println(turma);
+        System.out.println("---------------------------------------------");
+
         System.out.print("Tem certeza que deseja excluir essa turma? (S/N): ");
         char escolha = sc.next().charAt(0);
 

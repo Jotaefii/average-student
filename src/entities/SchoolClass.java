@@ -56,7 +56,6 @@ public class SchoolClass {
         return "Turma: " + getNomeTurma()
                 + "\nSala:  " + getSala()
                 + "\nProfessor(a): " + (getTeacher() != null ? getTeacher().getNome() : "Sem professor")
-                + "\nQuantidade de estudantes: " + getEstudantes().size()
-                + "\n";
+                + "\nQuantidade de estudantes: " + getEstudantes().size();
     }
 }

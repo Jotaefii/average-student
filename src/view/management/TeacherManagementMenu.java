@@ -20,9 +20,10 @@ public class TeacherManagementMenu {
         int opcao = 1;
 
         while (opcao != 0) {
-            System.out.println("=====================================");
-            System.out.println("          GERENCIAR PROFESSORES      ");
-            System.out.println("=====================================");
+            System.out.println();
+            System.out.println("╔═══════════════════════════════════════════╗");
+            System.out.println("          GERENCIAR PROFESSORES              ");
+            System.out.println("╚═══════════════════════════════════════════╝");
 
             System.out.println("1 - Cadastrar Professor(a)");
             System.out.println("2 - Buscar Professor(a)");
@@ -31,7 +32,7 @@ public class TeacherManagementMenu {
             System.out.println("5 - Remover Professor(a)");
             System.out.println("0 - Voltar");
 
-            System.out.println("=====================================");
+            System.out.println("═════════════════════════════════════════════");
             System.out.print("Escolha uma opção: ");
             opcao = sc.nextInt();
             sc.nextLine();
@@ -67,20 +68,29 @@ public class TeacherManagementMenu {
         System.out.print("Busque por nome do professor(a): ");
         String nameSearch = sc.nextLine();
 
+        System.out.println("---------------------------------------------");
+
         Teacher teacher = teacherService.searchTeacherByName(nameSearch);
 
         System.out.println(teacher.toString());
+        System.out.println("---------------------------------------------");
     }
 
     private void listTeacher() {
+        System.out.println("---------------------------------------------");
+
         for (Teacher teacher : teacherService.teacherList()) {
             System.out.println(teacher.getNome() + " | " + teacher.getClasse().getNomeTurma() + " - " + teacher.getClasse().getSala());
         }
+
+        System.out.println("---------------------------------------------");
     }
 
     private void updateTeacher(Scanner sc) {
         System.out.print("Buscar pelo CPF: ");
         String cpf = sc.next();
+
+        System.out.println("---------------------------------------------");
 
         Teacher teacher = teacherService.searchTeacherByCpf(cpf);
 
@@ -89,14 +99,18 @@ public class TeacherManagementMenu {
             return;
         }
 
-        System.out.print(teacher);
+        System.out.println(teacher);
         System.out.println("Senha: ********");
+
+        System.out.println("---------------------------------------------");
 
         System.out.println("1 - Alterar nome");
         System.out.println("2 - Alterar senha");
         System.out.print("Opção: ");
         int opcao = sc.nextInt();
         sc.nextLine();
+
+        System.out.println("---------------------------------------------");
 
         switch (opcao) {
             case 1:
@@ -131,16 +145,19 @@ public class TeacherManagementMenu {
         System.out.print("Buscar pelo CPF: ");
         String cpf = sc.next();
 
+        System.out.println("---------------------------------------------");
+
         Teacher teacher = teacherService.searchTeacherByCpf(cpf);
 
         if (teacher == null) {
             System.out.println("Professor(a) não encontrado!");
             return;
         }
-        System.out.print(teacher);
+        System.out.println(teacher);
         System.out.println("Senha: ********");
 
-        System.out.println();
+        System.out.println("---------------------------------------------");
+
         System.out.print("Tem certeza que deseja excluir " + teacher.getNome() + "? (S/N): ");
         char escolha = sc.next().charAt(0);
 

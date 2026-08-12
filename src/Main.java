@@ -1,3 +1,5 @@
+import entities.Management;
+import entities.Student;
 import entities.Teacher;
 import entities.User;
 import repository.ManagerRepository;
@@ -6,6 +8,7 @@ import repository.StudentRepository;
 import repository.TeacherRepository;
 import service.*;
 import view.management.ManagementMenu;
+import view.student.StudentMenu;
 import view.teacher.TeacherMenu;
 
 import java.util.Scanner;
@@ -30,9 +33,18 @@ public class Main {
        int opcao = 1;
 
        while (opcao != 2) {
+           System.out.println();
+           System.out.println("╔═══════════════════════════════════════════╗");
+           System.out.println("            MENU DO INICIAL                  ");
+           System.out.println("╚═══════════════════════════════════════════╝");
+
            System.out.println("1 - Entrar");
            System.out.println("2 - Sair");
+
+           System.out.println("═════════════════════════════════════════════");
+           System.out.print("Escolha uma opção: ");
            opcao = sc.nextInt();
+           sc.nextLine();
 
            switch (opcao) {
                case 1:
@@ -46,7 +58,8 @@ public class Main {
 
                    switch (user.getRole()) {
                        case MANAGER:
-                           ManagementMenu managementMenu = new ManagementMenu(schoolClassService, studentService, teacherService);
+                           Management management = (Management) user;
+                           ManagementMenu managementMenu = new ManagementMenu(schoolClassService, studentService, teacherService, management);
                            managementMenu.start(sc);
                            break;
                        case TEACHER:
@@ -54,6 +67,11 @@ public class Main {
                            TeacherMenu teacherMenu = new TeacherMenu(bulletinService, studentService, teacher);
                            teacherMenu.start(sc);
                            break;
+
+                       case STUDENT:
+                           Student student = (Student) user;
+                           StudentMenu studentMenu = new StudentMenu(student);
+                           studentMenu.start(sc);
                    }
                    break;
 

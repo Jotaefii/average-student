@@ -27,10 +27,13 @@ public class TeacherMenu {
         int opcao = 1;
 
         while (opcao != 0) {
+            System.out.println();
             System.out.println("╔═══════════════════════════════════════════╗");
-            System.out.println("            MENU DO PROFESSOR                ");
+            System.out.println("       Professor(a) " + teacher.getNome()     );
             System.out.println("╚═══════════════════════════════════════════╝");
+            System.out.println("Seu menu: ");
 
+            System.out.println();
             System.out.println("1 - Minha Turma");
             System.out.println("2 - Gerenciar Notas");
             System.out.println("3 - Gerenciar Frequência");
@@ -57,19 +60,14 @@ public class TeacherMenu {
     private void myClass() {
         List<Student> students = teacher.getClasse().getEstudantes();
 
-        System.out.println();
-        System.out.println("╔═══════════════════════════════════════════════════════════╗");
-        System.out.println("║                     MINHA TURMA                           ║");
-        System.out.println("╚═══════════════════════════════════════════════════════════╝");
-
         System.out.println("\nDADOS DA TURMA");
-        System.out.println("════════════════════════════════════════════════════════════");
+        System.out.println("---------------------------------------------");
         System.out.println("Turma: " + teacher.getClasse().getNomeTurma() + " - " + teacher.getClasse().getSala());
         System.out.println("Professor: " + teacher.getNome());
         System.out.println("Quantidade de alunos: " + students.size());
 
         System.out.println("\nALUNOS");
-        System.out.println("╔═══════════════════════════════════════════════════════════╗");
+        System.out.println("---------------------------------------------");
 
         if (students.isEmpty()) {
             System.out.println("Nenhum aluno cadastrado.");
@@ -81,21 +79,16 @@ public class TeacherMenu {
                 number++;
             }
         }
-        System.out.println("╚═══════════════════════════════════════════════════════════╝");
-        System.out.println();
+        System.out.println("---------------------------------------------");
     }
 
     private void myProfile() {
-        System.out.println();
-        System.out.println("╔═══════════════════════════════════════════════════════════╗");
-        System.out.println("║                     MEU PERFIL                            ║");
-        System.out.println("╚═══════════════════════════════════════════════════════════╝");
-
+        System.out.println("\n---------------------------------------------");
         System.out.println("Nome: " + teacher.getNome());
         System.out.println("CPF: " + teacher.getCpf());
         System.out.println("Senha: " + teacher.getSenha());
 
-        System.out.println("-------------------------------------------------------------");
+        System.out.println("---------------------------------------------");
 
         if (teacher.getClasse() != null) {
             System.out.println("Turma: " + teacher.getClasse().getNomeTurma() + " - " + teacher.getClasse().getSala());
@@ -103,8 +96,7 @@ public class TeacherMenu {
             System.out.println("Turma: Nenhuma turma atribuída");
         }
 
-        System.out.println("════════════════════════════════════════════════════════════");
-        System.out.println();
+        System.out.println("---------------------------------------------");
     }
 
     private void seeBulletin(Scanner sc) {

@@ -20,7 +20,6 @@ public class Teacher extends User {
     public String toString() {
         return "CPF: " + getCpf()
                 + "\nNome: " + this.getNome()
-                + "\nTurma: " + getClasse().getNomeTurma() + " - " + getClasse().getSala()
-                + "\n";
+                + "\nTurma: " + getClasse().getNomeTurma() + " - " + getClasse().getSala();
     }
 }

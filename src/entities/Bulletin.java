@@ -136,30 +136,24 @@ public class Bulletin {
 
     public String showGrades() {
         return "\n" +
-                "╔═══════════════════════════════════════════╗\n" +
-                "              NOTAS DO ALUNO\n" +
-                "╚═══════════════════════════════════════════╝\n" +
-                "Aluno: " + student.getNome() + "\n" +
-                "----------------------------------------\n" +
+                "Aluno(a): " + student.getNome() + "\n" +
+                "---------------------------------------------\n" +
                 "1º Bimestre: " + formatGrade(getFirstGrade()) + "\n" +
                 "2º Bimestre: " + formatGrade(getSecondGrade()) + "\n" +
                 "3º Bimestre: " + formatGrade(getThirdGrade()) + "\n" +
                 "4º Bimestre: " + formatGrade(getFourthGrade()) + "\n" +
-                "═════════════════════════════════════════════";
+                "---------------------------------------------";
     }
 
     public String showAttendance() {
         return "\n" +
-                "╔═══════════════════════════════════════════╗\n" +
-                "              FREQUÊNCIA\n" +
-                "╚═══════════════════════════════════════════╝\n" +
-                "Aluno: " + student.getNome() + "\n" +
-                "----------------------------------------\n" +
+                "Aluno(a): " + student.getNome() + "\n" +
+                "---------------------------------------------\n" +
                 "Total de aulas: " + totalClasses + "\n" +
                 "Presenças: " + attendedClasses + "\n" +
                 "Faltas: " + calculateAbsences() + "\n" +
                 String.format("Frequência: %.2f%%%n", calculeAttendante()) +
-                "═════════════════════════════════════════════";
+                "---------------------------------------------";
     }
 
     @Override
@@ -168,15 +162,15 @@ public class Bulletin {
                 "╔═══════════════════════════════════════════╗\n" +
                 "                 BOLETIM\n" +
                 "╚═══════════════════════════════════════════╝\n" +
-                "Aluno: " + student.getNome() + "\n" +
-                "----------------------------------------\n" +
+                "Aluno(a): " + student.getNome() + "\n" +
+                "---------------------------------------------\n" +
                 "1º Bimestre: " + formatGrade(firstGrade) + "\n" +
                 "2º Bimestre: " + formatGrade(secondGrade) + "\n" +
                 "3º Bimestre: " + formatGrade(thirdGrade) + "\n" +
                 "4º Bimestre: " + formatGrade(fourthGrade) + "\n" +
-                "----------------------------------------\n" +
+                "---------------------------------------------\n" +
                 String.format("Média: %.2f%n", calculateAverage()) +
-                "----------------------------------------\n" +
+                "---------------------------------------------\n" +
                 "Total de aulas: " + totalClasses + "\n" +
                 "Presenças: " + attendedClasses + "\n" +
                 "Faltas: " + calculateAbsences() + "\n" +
@@ -184,7 +178,7 @@ public class Bulletin {
                         "Frequência: %.2f%%%n",
                         calculeAttendante()
                 ) +
-                "----------------------------------------\n" +
+                "---------------------------------------------\n" +
                 "Situação: " + situation() + "\n" +
                 "═════════════════════════════════════════════";
     }

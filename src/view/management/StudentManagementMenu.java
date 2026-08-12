@@ -20,9 +20,10 @@ public class StudentManagementMenu {
         int opcao = 1;
 
         while (opcao != 0) {
-            System.out.println("=====================================");
-            System.out.println("          GERENCIAR ESTUDANTES       ");
-            System.out.println("=====================================");
+            System.out.println();
+            System.out.println("╔═══════════════════════════════════════════╗");
+            System.out.println("          GERENCIAR ESTUDANTES               ");
+            System.out.println("╚═══════════════════════════════════════════╝");
 
             System.out.println("1 - Cadastrar Aluno(a)");
             System.out.println("2 - Buscar Aluno(a)");
@@ -31,7 +32,7 @@ public class StudentManagementMenu {
             System.out.println("5 - Remover Aluno(a)");
             System.out.println("0 - Voltar");
 
-            System.out.println("=====================================");
+            System.out.println("═════════════════════════════════════════════");
             System.out.print("Escolha uma opção: ");
             opcao = sc.nextInt();
             sc.nextLine();
@@ -69,32 +70,45 @@ public class StudentManagementMenu {
         System.out.print("Busque por nome do aluno(a): ");
         String nome = sc.nextLine();
 
+        System.out.println("---------------------------------------------");
+
         Student students = studentService.searchStudentByNome(nome);
 
         System.out.println(students);
+        System.out.println("---------------------------------------------");
     }
 
     private void listStudent(Scanner sc) {
         System.out.print("Deseja listar aluno(a) por sala? (S/N): ");
         char escolha = sc.next().charAt(0);
 
+        System.out.println("---------------------------------------------");
+
         if (escolha == 'N' || escolha == 'n') {
             for (Student student : studentService.listAllStudents()) {
                 System.out.println(student.getNome() + " | " + student.getSchoolClass().getNomeTurma() + " - " + student.getSchoolClass().getSala());
             }
+            System.out.println("---------------------------------------------");
         } else {
             System.out.print("Busque alunos da sala: ");
             int sala = sc.nextInt();
+            System.out.println();
+
+            System.out.println("ALUNOS(A)");
+            System.out.println("---------------------------------------------");
 
             for (Student student : studentService.listAllStudentsBySchool(sala)) {
                 System.out.println(" - " + student.getNome());
             }
+            System.out.println("---------------------------------------------");
         }
     }
 
     private void editStudent(Scanner sc) {
         System.out.print("Digite o CPF do aluno(a): ");
         String cpf = sc.nextLine();
+
+        System.out.println("---------------------------------------------");
 
         Student student = studentService.searchStudentByCpf(cpf);
         if (student == null) {
@@ -104,11 +118,15 @@ public class StudentManagementMenu {
         System.out.println(student);
         System.out.println("Senha: ********");
 
-        System.out.println();
+        System.out.println("---------------------------------------------");
+
         System.out.println("1 - Alterar nome");
         System.out.println("2 - Alterar senha");
+        System.out.print("Opção: ");
         int opcao = sc.nextInt();
         sc.nextLine();
+
+        System.out.println("---------------------------------------------");
 
         switch (opcao) {
             case 1:
@@ -143,6 +161,8 @@ public class StudentManagementMenu {
         System.out.print("Buscar aluno(a) pelo CPF: ");
         String cpf = sc.nextLine();
 
+        System.out.println("---------------------------------------------");
+
         Student student = studentService.searchStudentByCpf(cpf);
 
         if (student == null) {
@@ -153,17 +173,21 @@ public class StudentManagementMenu {
         System.out.println(student);
         System.out.println("Senha: ********");
 
-        System.out.println("Deseja realmente excluir esse aluno(a)? (S/N): ");
+        System.out.println("---------------------------------------------");
+
+        System.out.print("Deseja realmente excluir esse aluno(a)? (S/N): ");
         char escolha = sc.next().charAt(0);
 
-        if (escolha == 'S' || escolha == 's') {
-            boolean excluiu = studentService.deleteStudent(cpf);
+        if (escolha == 'N' || escolha == 'n') {
+            System.out.println("Exclusão cancelada");
+            return;
+        }
 
-            if (excluiu) {
-                System.out.println("Aluno removido com sucesso!");
-            } else {
-                System.out.println("Nenhum aluno(a) encontrado!");
-            }
+        boolean excluiu = studentService.deleteStudent(cpf);
+        if (excluiu) {
+            System.out.println(student.getNome() + " excluido(a) com sucesso!");
+        } else {
+            System.out.println("Erro ao excluir");
         }
     }
 }

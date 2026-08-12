@@ -30,7 +30,6 @@ public class Student extends User {
     public String toString() {
         return "CPF: " + getCpf()
                 + "\nAluno(a): " + getNome()
-                + "\nTurma: " + getSchoolClass().getNomeTurma() + " - " + getSchoolClass().getSala()
-                + "\n";
+                + "\nTurma: " + getSchoolClass().getNomeTurma() + " - " + getSchoolClass().getSala();
     }
 }

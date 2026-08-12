@@ -19,6 +19,7 @@ public class AttendanceMenu {
         int opcao = 1;
 
         while (opcao != 0) {
+            System.out.println();
             System.out.println("╔═══════════════════════════════════════════╗");
             System.out.println("          GERENCIAR FREQUÊNCIA               ");
             System.out.println("╚═══════════════════════════════════════════╝");
@@ -40,12 +41,13 @@ public class AttendanceMenu {
                     Student student = studentService.searchStudentByCpf(cpfSearch);
 
                     if (student == null) {
-                        System.out.println("Aluno(a)");
+                        System.out.println("Nenhum aluno(a) encontrado!");
                         break;
                     }
 
                     System.out.println();
                     System.out.println("Aluno: " + student.getNome());
+                    System.out.println("---------------------------------------------");
 
                     System.out.println("1 - Presente");
                     System.out.println("2 - Ausente");
@@ -53,6 +55,7 @@ public class AttendanceMenu {
                     System.out.print("Situação: ");
                     int option = sc.nextInt();
                     sc.nextLine();
+                    System.out.println("---------------------------------------------");
                     
                     if (option == 1) {
                         bulletinService.registerAttendance(student, true);
