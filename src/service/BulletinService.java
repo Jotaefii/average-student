@@ -2,6 +2,7 @@ package service;
 
 import entities.Bulletin;
 import entities.Student;
+import excepetions.BusinessException;
 
 public class BulletinService {
 
@@ -9,15 +10,39 @@ public class BulletinService {
         Bulletin bulletin = student.getBulletin();
 
         if (bulletin == null) {
-            System.out.println("Boletim não encontrado!");
-            return;
+            throw new BusinessException("Boletim não encontrado!");
+        }
+
+        if (grade < 0 || grade > 10) {
+            throw new BusinessException("A nota deve estar entre 0 e 10");
         }
 
         switch (bimester) {
-            case 1 -> bulletin.setFirstGrade(grade);
-            case 2 -> bulletin.setSecondGrade(grade);
-            case 3 -> bulletin.setThirdGrade(grade);
-            case 4 -> bulletin.setFourthGrade(grade);
+            case 1 -> {
+                if (bulletin.getFirstGrade() != null) {
+                    throw new BusinessException("O 1° bimestre já possui uma nota!");
+                }
+                bulletin.setFirstGrade(grade);
+            }
+            case 2 -> {
+                if (bulletin.getSecondGrade() != null) {
+                    throw new BusinessException("O 2° bimestre já possui uma nota!");
+                }
+                bulletin.setSecondGrade(grade);
+            }
+            case 3 -> {
+                if (bulletin.getThirdGrade() != null) {
+                    throw new BusinessException("O 3° bimestre já possui uma nota!");
+                }
+                bulletin.setThirdGrade(grade);
+            }
+            case 4 -> {
+                if (bulletin.getFourthGrade() != null) {
+                    throw new BusinessException("O 4° bimestre já possui uma nota!");
+                }
+                bulletin.setFourthGrade(grade);
+            }
+            default -> throw new BusinessException("Bimestre inválido!");
         }
     }
 

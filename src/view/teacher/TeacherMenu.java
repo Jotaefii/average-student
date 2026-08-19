@@ -4,6 +4,7 @@ import entities.Student;
 import entities.Teacher;
 import service.BulletinService;
 import service.StudentService;
+import util.InputUtils;
 
 import java.util.List;
 import java.util.Scanner;
@@ -24,9 +25,7 @@ public class TeacherMenu {
     }
 
     public void start(Scanner sc) {
-        int opcao = 1;
-
-        while (opcao != 0) {
+        while (true) {
             System.out.println();
             System.out.println("╔═══════════════════════════════════════════╗");
             System.out.println("       Professor(a) " + teacher.getNome()     );
@@ -42,9 +41,7 @@ public class TeacherMenu {
             System.out.println("0 - Voltar");
 
             System.out.println("═════════════════════════════════════════════");
-            System.out.print("Escolha uma opção: ");
-            opcao = sc.nextInt();
-            sc.nextLine();
+            int opcao = InputUtils.readInt(sc, "Escolha: ");
 
             switch (opcao) {
                 case 1 -> myClass();
@@ -52,7 +49,10 @@ public class TeacherMenu {
                 case 3 -> attendanceMenu.startAttendance(sc);
                 case 4 -> myProfile();
                 case 5 -> seeBulletin(sc);
-                default -> opcao = 0;
+                case 0 -> {
+                    return;
+                }
+                default -> System.out.println("Opão inválida!");
             }
         }
     }
@@ -63,7 +63,7 @@ public class TeacherMenu {
         System.out.println("\nDADOS DA TURMA");
         System.out.println("---------------------------------------------");
         System.out.println("Turma: " + teacher.getClasse().getNomeTurma() + " - " + teacher.getClasse().getSala());
-        System.out.println("Professor: " + teacher.getNome());
+        System.out.println("Professor(a): " + teacher.getNome());
         System.out.println("Quantidade de alunos: " + students.size());
 
         System.out.println("\nALUNOS");
@@ -83,7 +83,8 @@ public class TeacherMenu {
     }
 
     private void myProfile() {
-        System.out.println("\n---------------------------------------------");
+        System.out.println("\nMEU PERFIL");
+        System.out.println("---------------------------------------------");
         System.out.println("Nome: " + teacher.getNome());
         System.out.println("CPF: " + teacher.getCpf());
         System.out.println("Senha: " + teacher.getSenha());
@@ -100,8 +101,7 @@ public class TeacherMenu {
     }
 
     private void seeBulletin(Scanner sc) {
-        System.out.print("Busque o aluno(a) pelo CPF: ");
-        String cpf = sc.next();
+        String cpf = InputUtils.readNumbers(sc, "Busque o aluno(a) pelo CPF: ");
 
         Student student = studentService.searchStudentByCpf(cpf);
 

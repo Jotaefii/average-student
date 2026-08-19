@@ -4,9 +4,12 @@ import entities.Management;
 import entities.Student;
 import entities.Teacher;
 import entities.User;
+import excepetions.BusinessException;
 import repository.ManagerRepository;
 import repository.StudentRepository;
 import repository.TeacherRepository;
+import util.CpfValidator;
+import util.PasswordValidator;
 
 public class AuthenticateLogin {
 
@@ -20,26 +23,33 @@ public class AuthenticateLogin {
         this.studentRepository = studentRepository;
     }
 
-    public User login(String cpf, int password) {
+    public User login(String cpf, String password) {
+        if (!CpfValidator.isValid(cpf)) {
+            throw new BusinessException("CPF inválido!");
+        }
+
+        if (!PasswordValidator.isValid(password)) {
+            throw new BusinessException("Senha inválida!");
+        }
 
         Management management = managerRepository.findByCpf(cpf);
 
-        if (management != null && management.getSenha() == password) {
+        if (management != null && management.getSenha().equals(password)) {
             return management;
         }
 
         Teacher teacher = teacherRepository.searchTeacherByCpf(cpf);
 
-        if (teacher != null && teacher.getSenha() == password) {
+        if (teacher != null && teacher.getSenha().equals(password)) {
             return teacher;
         }
 
         Student student = studentRepository.searchStudentByCpf(cpf);
 
-        if (student != null && student.getSenha() == password) {
+        if (student != null && student.getSenha().equals(password)) {
             return student;
         }
 
-        return null;
+        throw new BusinessException("CPF ou senha incorretos!");
     }
 }

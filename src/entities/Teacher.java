@@ -3,7 +3,7 @@ package entities;
 public class Teacher extends User {
     private SchoolClass classe;
 
-    public Teacher(String nome, String cpf, int senha, SchoolClass classe) {
+    public Teacher(String nome, String cpf, String senha, SchoolClass classe) {
         super(nome, cpf, senha);
         this.classe = classe;
     }
@@ -19,7 +19,7 @@ public class Teacher extends User {
     @Override
     public String toString() {
         return "CPF: " + getCpf()
-                + "\nNome: " + this.getNome()
+                + "\nProfessor(a): " + this.getNome()
                 + "\nTurma: " + getClasse().getNomeTurma() + " - " + getClasse().getSala();
     }
 }

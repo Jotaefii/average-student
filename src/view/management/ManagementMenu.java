@@ -4,6 +4,7 @@ import entities.Management;
 import service.SchoolClassService;
 import service.StudentService;
 import service.TeacherService;
+import util.InputUtils;
 
 import java.util.Scanner;
 
@@ -22,9 +23,7 @@ public class ManagementMenu {
     }
 
     public void start(Scanner sc) {
-        int opcao = 1;
-
-        while (opcao != 0) {
+        while (true) {
             System.out.println();
             System.out.println("╔═══════════════════════════════════════════╗");
             System.out.println("            Gestor(a) " + management.getNome());
@@ -38,15 +37,16 @@ public class ManagementMenu {
             System.out.println("0 - Voltar");
 
             System.out.println("═════════════════════════════════════════════");
-            System.out.print("Escolha uma opção: ");
-            opcao = sc.nextInt();
-            sc.nextLine();
+            int opcao = InputUtils.readInt(sc, "Opção: ");
 
             switch (opcao) {
                 case 1 -> classManagementMenu.start(sc);
                 case 2 -> teacherManagementMenu.start(sc);
                 case 3 -> studentManagementMenu.start(sc);
-                default -> opcao = 0;
+                case 0 -> {
+                    return;
+                }
+                default -> System.out.println("Opção inválida!");
             }
         }
     }

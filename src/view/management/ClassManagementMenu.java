@@ -1,7 +1,9 @@
 package view.management;
 
 import entities.SchoolClass;
+import excepetions.BusinessException;
 import service.SchoolClassService;
+import util.InputUtils;
 
 import java.util.Scanner;
 
@@ -13,9 +15,7 @@ public class ClassManagementMenu {
     }
 
     public void start(Scanner sc) {
-        int opcao = 1;
-
-        while (opcao != 0) {
+        while (true) {
             System.out.println();
             System.out.println("╔═══════════════════════════════════════════╗");
             System.out.println("            GERENCIAR TURMAS                 ");
@@ -29,9 +29,7 @@ public class ClassManagementMenu {
             System.out.println("0 - Voltar");
 
             System.out.println("═════════════════════════════════════════════");
-            System.out.print("Escolha uma opção: ");
-            opcao = sc.nextInt();
-            sc.nextLine();
+            int opcao = InputUtils.readInt(sc, "Opção: ");
 
             switch (opcao) {
 
@@ -40,33 +38,41 @@ public class ClassManagementMenu {
             case 3 -> listClasses();
             case 4 -> updateClass(sc);
             case 5 -> deleteClass(sc);
-            default -> opcao = 0;
+            case 0 -> {
+                    return;
+                }
+            default -> System.out.println("Opcão inválida!");
 
             }
         }
     }
 
     private void createClass(Scanner sc) {
-        System.out.print("Criar nome da turma: ");
-        String nomeTurma = sc.nextLine();
+        String nomeTurma = InputUtils.readName(sc, "Criar nome da turma: ");
 
-        System.out.print("Numero da sala: ");
-        int sala = sc.nextInt();
+        int sala = InputUtils.readInt(sc, "Número da sala: ");
 
-        turmaService.criarTurma(nomeTurma, sala);
-        System.out.println("Turma criada com sucesso!");
+        try {
+            turmaService.criarTurma(nomeTurma, sala);
+            System.out.println("Turma criada com sucesso!");
+        }
+        catch (BusinessException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     private void searchClass(Scanner sc) {
-        System.out.print("Buscar por sala: ");
-        int salaBusca = sc.nextInt();
+        int salaBusca = InputUtils.readInt(sc, "Buscar por sala: ");
 
         System.out.println("---------------------------------------------");
 
-        SchoolClass turma = turmaService.buscarTurma(salaBusca);
-
-        System.out.println(turma.toString());
-        System.out.println("---------------------------------------------");
+        try {
+            SchoolClass turma = turmaService.buscarTurma(salaBusca);
+            System.out.println(turma.toString());
+        }
+        catch (BusinessException e) {
+            System.out.println("Errror: " + e.getMessage());
+        }
     }
 
     private void listClasses() {
@@ -81,57 +87,55 @@ public class ClassManagementMenu {
     }
 
     private void updateClass(Scanner sc) {
-        System.out.print("Buscar por sala: ");
-        int salaBusca = sc.nextInt();
-        sc.nextLine();
+        int salaBusca = InputUtils.readInt(sc, "Buscar por sala: ");
 
         System.out.println("---------------------------------------------");
 
-        SchoolClass turma = turmaService.buscarTurma(salaBusca);
-        if (turma == null) {
-            System.out.println("Nenhum Turma encontrada.");
-            return;
+        try {
+            SchoolClass turma = turmaService.buscarTurma(salaBusca);
+
+            System.out.printf("Turma de %s, sala %d encontrada!%n", turma.getNomeTurma(), turma.getSala());
+            String novoNomeTurma = InputUtils.readName(sc, "Novo nome: ");
+
+            boolean editou = turmaService.editaTurma(novoNomeTurma, salaBusca);
+            if (editou) {
+                System.out.println("Turma atualizada com sucesso!");
+            } else {
+                System.out.println("Error ao atualizar turma!");
+            }
         }
-
-        System.out.printf("Turma de %s, sala %d encontrada!%n", turma.getNomeTurma(), turma.getSala());
-        System.out.print("Novo nome: ");
-        String novoNomeTurma = sc.nextLine();
-
-        boolean editou = turmaService.editaTurma(novoNomeTurma, salaBusca);
-        if (editou) {
-            System.out.println("Turma atualizada com sucesso!");
-        } else {
-            System.out.println("Error ao atualizar turma!");
+        catch (BusinessException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
     private void deleteClass(Scanner sc) {
-        System.out.print("Buscar por sala: ");
-        int salaBusca = sc.nextInt();
+        int salaBusca = InputUtils.readInt(sc, "Buscar por sala: ");
 
         System.out.println("---------------------------------------------");
 
-        SchoolClass turma = turmaService.buscarTurma(salaBusca);
-        if (turma == null) {
-            System.out.println("Nenhum Turma encontrada.");
-            return;
-        }
+        try {
+            SchoolClass turma = turmaService.buscarTurma(salaBusca);
 
-        System.out.println(turma);
-        System.out.println("---------------------------------------------");
+            System.out.println(turma);
+            System.out.println("---------------------------------------------");
 
-        System.out.print("Tem certeza que deseja excluir essa turma? (S/N): ");
-        char escolha = sc.next().charAt(0);
+            System.out.print("Tem certeza que deseja excluir essa turma? (S/N): ");
+            char escolha = sc.next().charAt(0);
 
-        if (escolha == 's' || escolha == 'S') {
-            boolean exlcuiu = turmaService.deletaTurma(salaBusca);
-            if (exlcuiu) {
-                System.out.println("Turma excluida com sucesso!");
-            }  else {
-                System.out.println("Error ao excluir turma!");
+            if (escolha == 's' || escolha == 'S') {
+                boolean exlcuiu = turmaService.deletaTurma(salaBusca);
+                if (exlcuiu) {
+                    System.out.println("Turma excluida com sucesso!");
+                }  else {
+                    System.out.println("Error ao excluir turma!");
+                }
+            } else {
+                System.out.println("Erro ao excluir turma!");
             }
-        } else {
-            System.out.println("Erro ao excluir turma!");
+        }
+        catch (BusinessException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }

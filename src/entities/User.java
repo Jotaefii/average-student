@@ -5,11 +5,11 @@ import entities.enums.UserRole;
 public class User {
     private String nome;
     private String cpf;
-    private int senha;
+    private String senha;
 
     private UserRole role;
 
-    public User(String nome, String cpf, int senha) {
+    public User(String nome, String cpf, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.senha = senha;
@@ -31,11 +31,11 @@ public class User {
         this.cpf = cpf;
     }
 
-    public int getSenha() {
+    public String getSenha() {
         return senha;
     }
 
-    public void setSenha(int senha) {
+    public void setSenha(String senha) {
         this.senha = senha;
     }
 

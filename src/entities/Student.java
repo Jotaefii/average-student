@@ -5,7 +5,7 @@ public class Student extends User {
     private SchoolClass schoolClass;
     private Bulletin bulletin;
 
-    public Student(String nome, String cpf, int senha, SchoolClass schoolClass) {
+    public Student(String nome, String cpf, String senha, SchoolClass schoolClass) {
         super(nome, cpf, senha);
         this.schoolClass = schoolClass;
     }

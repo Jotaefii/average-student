@@ -1,8 +1,10 @@
 package view.teacher;
 
 import entities.Student;
+import excepetions.BusinessException;
 import service.BulletinService;
 import service.StudentService;
+import util.InputUtils;
 
 import java.util.Scanner;
 
@@ -16,9 +18,7 @@ public class AttendanceMenu {
     }
 
     public void startAttendance(Scanner sc) {
-        int opcao = 1;
-
-        while (opcao != 0) {
+        while (true) {
             System.out.println();
             System.out.println("╔═══════════════════════════════════════════╗");
             System.out.println("          GERENCIAR FREQUÊNCIA               ");
@@ -29,57 +29,59 @@ public class AttendanceMenu {
             System.out.println("0 - Voltar");
 
             System.out.println("═════════════════════════════════════════════");
-            System.out.print("Escolha uma opção: ");
-            opcao = sc.nextInt();
-            sc.nextLine();
+            int opcao = InputUtils.readInt(sc, "Opção: ");
 
             switch (opcao) {
                 case 1:
-                    System.out.print("Busque pelo CPF: ");
-                    String cpfSearch = sc.next();
+                    String cpfSearch = InputUtils.readNumbers(sc, "Busque pelo CPF: ");
 
-                    Student student = studentService.searchStudentByCpf(cpfSearch);
+                    try {
+                        Student student = studentService.searchStudentByCpf(cpfSearch);
 
-                    if (student == null) {
-                        System.out.println("Nenhum aluno(a) encontrado!");
-                        break;
+                        System.out.println();
+                        System.out.println("Aluno(a): " + student.getNome());
+                        System.out.println("---------------------------------------------");
+
+                        System.out.println("1 - Presente");
+                        System.out.println("2 - Ausente");
+
+                        int option = InputUtils.readInt(sc, "Situação: ");
+                        System.out.println("---------------------------------------------");
+
+                        if (option == 1) {
+                            bulletinService.registerAttendance(student, true);
+                            System.out.println("Presença registrada!");
+                        } else if (option == 2) {
+                            bulletinService.registerAttendance(student, false);
+                            System.out.println("Falta registrada!");
+                        } else {
+                            System.out.println("Opção inválida.");
+                        }
                     }
-
-                    System.out.println();
-                    System.out.println("Aluno: " + student.getNome());
-                    System.out.println("---------------------------------------------");
-
-                    System.out.println("1 - Presente");
-                    System.out.println("2 - Ausente");
-
-                    System.out.print("Situação: ");
-                    int option = sc.nextInt();
-                    sc.nextLine();
-                    System.out.println("---------------------------------------------");
-                    
-                    if (option == 1) {
-                        bulletinService.registerAttendance(student, true);
-                        System.out.println("Presença registrada!");
-                    } else if (option == 2) {
-                        bulletinService.registerAttendance(student, false);
-                        System.out.println("Falta registrada!");
-                    } else {
-                        System.out.println("Opção inválida.");
+                    catch (BusinessException e) {
+                        System.out.println("---------------------------------------------");
+                        System.out.println("Error: " + e.getMessage());
                     }
                     break;
 
                 case 2:
-                    System.out.print("Busque aluno(a) pelo CPF: ");
-                    String cpfSearch1 = sc.next();
+                    String cpfSearch1 = InputUtils.readNumbers(sc, "Busque aluno(a) pelo CPF: ");
 
-                    Student student1 = studentService.searchStudentByCpf(cpfSearch1);
-
-                    if (student1 == null) {
-                        System.out.println("Aluno(a) não encontrado!");
-                        break;
+                    try {
+                        Student student1 = studentService.searchStudentByCpf(cpfSearch1);
+                        System.out.println(student1.getBulletin().showAttendance());
                     }
+                    catch (BusinessException e) {
+                        System.out.println("---------------------------------------------");
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    break;
 
-                    System.out.println(student1.getBulletin().showAttendance());
+                case 0:
+                    return;
+
+                default:
+                    System.out.println("Opção inválida!");
                     break;
             }
         }

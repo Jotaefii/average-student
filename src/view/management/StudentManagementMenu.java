@@ -2,8 +2,10 @@ package view.management;
 
 import entities.SchoolClass;
 import entities.Student;
+import excepetions.BusinessException;
 import service.SchoolClassService;
 import service.StudentService;
+import util.InputUtils;
 
 import java.util.Scanner;
 
@@ -17,9 +19,7 @@ public class StudentManagementMenu {
     }
 
     public void start(Scanner sc) {
-        int opcao = 1;
-
-        while (opcao != 0) {
+        while (true) {
             System.out.println();
             System.out.println("╔═══════════════════════════════════════════╗");
             System.out.println("          GERENCIAR ESTUDANTES               ");
@@ -33,9 +33,7 @@ public class StudentManagementMenu {
             System.out.println("0 - Voltar");
 
             System.out.println("═════════════════════════════════════════════");
-            System.out.print("Escolha uma opção: ");
-            opcao = sc.nextInt();
-            sc.nextLine();
+            int opcao = InputUtils.readInt(sc, "Escolha: ");
 
             switch (opcao) {
                 case 1 -> registerStudent(sc);
@@ -43,39 +41,44 @@ public class StudentManagementMenu {
                 case 3 -> listStudent(sc);
                 case 4 -> editStudent(sc);
                 case 5 -> deleteStudent(sc);
-                default -> opcao = 0;
+                case 0 -> {
+                    return;
+                }
+                default -> System.out.println("Opção inválida!");
             }
         }
     }
 
     private void registerStudent(Scanner sc) {
-        System.out.print("Digite o nome do aluno(a): ");
-        String nome = sc.nextLine();
-        System.out.print("Digite o CPF do aluno(a): ");
-        String cpf = sc.nextLine();
-        System.out.print("Crie a senha do aluno(a): ");
-        int senha = sc.nextInt();
-        sc.nextLine();
+        String nome = InputUtils.readName(sc, "Digite o nome do aluno(a): ");
+        String cpf = InputUtils.readNumbers(sc, "Digite o CPF do aluno(a): ");
+        String senha = InputUtils.readNumbers(sc, "Crie a senha do aluno(a): ");
 
-        System.out.print("Adicionar " + nome + " na sala: ");
-        int sala = sc.nextInt();
+        int sala = InputUtils.readInt(sc, "Adicionar " + nome + " na sala: ");
 
         SchoolClass schoolClass = schoolClassService.buscarTurma(sala);
 
-        studentService.addStudent(nome, cpf, senha, schoolClass);
-        System.out.println("Aluno adicionado com sucesso!");
+        try {
+            studentService.addStudent(nome, cpf, senha, schoolClass);
+            System.out.println("Aluno(a) adicionado com sucesso!");
+        }
+        catch (BusinessException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     private void searchStudent(Scanner sc) {
-        System.out.print("Busque por nome do aluno(a): ");
-        String nome = sc.nextLine();
+        String nome = InputUtils.readName(sc, "Busque por nome do aluno(a): ");
 
         System.out.println("---------------------------------------------");
 
-        Student students = studentService.searchStudentByNome(nome);
-
-        System.out.println(students);
-        System.out.println("---------------------------------------------");
+        try {
+            Student students = studentService.searchStudentByNome(nome);
+            System.out.println(students);
+        }
+        catch (BusinessException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     private void listStudent(Scanner sc) {
@@ -90,8 +93,7 @@ public class StudentManagementMenu {
             }
             System.out.println("---------------------------------------------");
         } else {
-            System.out.print("Busque alunos da sala: ");
-            int sala = sc.nextInt();
+            int sala = InputUtils.readInt(sc, "Busque alunos(a) da sala: ");
             System.out.println();
 
             System.out.println("ALUNOS(A)");
@@ -105,89 +107,89 @@ public class StudentManagementMenu {
     }
 
     private void editStudent(Scanner sc) {
-        System.out.print("Digite o CPF do aluno(a): ");
-        String cpf = sc.nextLine();
+        String cpf = InputUtils.readNumbers(sc, "digite o CPF do aluno(a): ");
 
         System.out.println("---------------------------------------------");
 
-        Student student = studentService.searchStudentByCpf(cpf);
-        if (student == null) {
-            System.out.println("Nenhum aluno(a) encontrado!");
-            return;
+        try {
+            Student student = studentService.searchStudentByCpf(cpf);
+
+            System.out.println(student);
+            System.out.println("Senha: ********");
+
+            System.out.println("---------------------------------------------");
+
+            System.out.println("1 - Alterar nome");
+            System.out.println("2 - Alterar senha");
+            int opcao = InputUtils.readInt(sc, "Opção: ");
+
+            System.out.println("---------------------------------------------");
+
+            switch (opcao) {
+                case 1:
+                    String novoNome = InputUtils.readName(sc, "Novo nome do aluno(a): ");
+                    student.setNome(novoNome);
+                    boolean editouNome = studentService.editStudent(cpf, student);
+
+                    if (editouNome) {
+                        System.out.println("Nome alterado com sucesso!");
+                    } else {
+                        System.out.println("Nenhum aluno(a) encontrado!");
+                    }
+                    break;
+
+                case 2:
+                    String novaSenha = InputUtils.readNumbers(sc, "Nova senha do aluno(a): ");
+                    student.setSenha(novaSenha);
+                    boolean editouSenha = studentService.editStudent(cpf, student);
+
+                    if (editouSenha) {
+                        System.out.println("Senha alterado com sucesso!");
+                    } else {
+                        System.out.println("Nenhum aluno(a) encontrado!");
+                    }
+                    break;
+
+                default:
+                    System.out.println("Opção inválida!");
+                    break;
+            }
         }
-        System.out.println(student);
-        System.out.println("Senha: ********");
-
-        System.out.println("---------------------------------------------");
-
-        System.out.println("1 - Alterar nome");
-        System.out.println("2 - Alterar senha");
-        System.out.print("Opção: ");
-        int opcao = sc.nextInt();
-        sc.nextLine();
-
-        System.out.println("---------------------------------------------");
-
-        switch (opcao) {
-            case 1:
-                System.out.print("Novo nome do aluno(a): ");
-                String novoNome = sc.nextLine();
-                student.setNome(novoNome);
-                boolean editouNome = studentService.editStudent(cpf, student);
-
-                if (editouNome) {
-                    System.out.println("Nome alterado com sucesso!");
-                } else {
-                    System.out.println("Nenhum aluno(a) encontrado!");
-                }
-                break;
-
-            case 2:
-                System.out.print("Novo senha do aluno(a): ");
-                int novaSenha = sc.nextInt();
-                student.setSenha(novaSenha);
-                boolean editouSenha = studentService.editStudent(cpf, student);
-
-                if (editouSenha) {
-                    System.out.println("Senha alterado com sucesso!");
-                } else {
-                    System.out.println("Nenhum aluno(a) encontrado!");
-                }
-                break;
+        catch (BusinessException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
     private void deleteStudent(Scanner sc) {
-        System.out.print("Buscar aluno(a) pelo CPF: ");
-        String cpf = sc.nextLine();
+        String cpf = InputUtils.readNumbers(sc, "Buscar aluno(a) pelo CPF: ");
 
         System.out.println("---------------------------------------------");
 
-        Student student = studentService.searchStudentByCpf(cpf);
+        try {
+            Student student = studentService.searchStudentByCpf(cpf);
 
-        if (student == null) {
-            System.out.println("Nenhum aluno(a) encontrado!");
-            return;
+            System.out.println(student);
+            System.out.println("Senha: ********");
+
+            System.out.println("---------------------------------------------");
+
+            System.out.print("Deseja realmente excluir esse aluno(a)? (S/N): ");
+            char escolha = sc.next().charAt(0);
+
+            if (escolha == 'N' || escolha == 'n') {
+                System.out.println("Exclusão cancelada");
+                return;
+            }
+
+            boolean excluiu = studentService.deleteStudent(cpf, student);
+            if (excluiu) {
+                System.out.println(student.getNome() + " excluido(a) com sucesso!");
+            } else {
+                System.out.println("Erro ao excluir");
+            }
         }
-
-        System.out.println(student);
-        System.out.println("Senha: ********");
-
-        System.out.println("---------------------------------------------");
-
-        System.out.print("Deseja realmente excluir esse aluno(a)? (S/N): ");
-        char escolha = sc.next().charAt(0);
-
-        if (escolha == 'N' || escolha == 'n') {
-            System.out.println("Exclusão cancelada");
-            return;
-        }
-
-        boolean excluiu = studentService.deleteStudent(cpf);
-        if (excluiu) {
-            System.out.println(student.getNome() + " excluido(a) com sucesso!");
-        } else {
-            System.out.println("Erro ao excluir");
+        catch (BusinessException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }

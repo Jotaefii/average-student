@@ -2,11 +2,13 @@ import entities.Management;
 import entities.Student;
 import entities.Teacher;
 import entities.User;
+import excepetions.BusinessException;
 import repository.ManagerRepository;
 import repository.SchoolClassRepository;
 import repository.StudentRepository;
 import repository.TeacherRepository;
 import service.*;
+import util.InputUtils;
 import view.management.ManagementMenu;
 import view.student.StudentMenu;
 import view.teacher.TeacherMenu;
@@ -26,8 +28,8 @@ public class Main {
         // Service
         AuthenticateLogin authenticateLogin = new AuthenticateLogin(managerRepository, teacherRepository, studentRepository);
         SchoolClassService schoolClassService = new SchoolClassService(schoolClassRepository);
-        StudentService studentService = new StudentService(studentRepository, schoolClassRepository);
-        TeacherService teacherService = new TeacherService(teacherRepository, schoolClassRepository);
+        StudentService studentService = new StudentService(studentRepository, schoolClassRepository, new UserService(studentRepository, teacherRepository, managerRepository));
+        TeacherService teacherService = new TeacherService(teacherRepository, schoolClassRepository, new UserService(studentRepository, teacherRepository, managerRepository));
         BulletinService bulletinService = new BulletinService();
 
        int opcao = 1;
@@ -42,36 +44,38 @@ public class Main {
            System.out.println("2 - Sair");
 
            System.out.println("═════════════════════════════════════════════");
-           System.out.print("Escolha uma opção: ");
-           opcao = sc.nextInt();
-           sc.nextLine();
+           opcao = InputUtils.readInt(sc, "Opção: ");
 
            switch (opcao) {
                case 1:
-                   System.out.print("CPF: ");
-                   String cpf = sc.next();
+                   String cpf = InputUtils.readNumbers(sc, "CPF: ");
 
-                   System.out.print("Senha: ");
-                   int password = sc.nextInt();
+                   String password = InputUtils.readNumbers(sc, "Senha: ");
 
-                   User user = authenticateLogin.login(cpf, password);
+                   try {
+                       User user = authenticateLogin.login(cpf, password);
 
-                   switch (user.getRole()) {
-                       case MANAGER:
-                           Management management = (Management) user;
-                           ManagementMenu managementMenu = new ManagementMenu(schoolClassService, studentService, teacherService, management);
-                           managementMenu.start(sc);
-                           break;
-                       case TEACHER:
-                           Teacher teacher = (Teacher) user;
-                           TeacherMenu teacherMenu = new TeacherMenu(bulletinService, studentService, teacher);
-                           teacherMenu.start(sc);
-                           break;
+                       switch (user.getRole()) {
+                           case MANAGER:
+                               Management management = (Management) user;
+                               ManagementMenu managementMenu = new ManagementMenu(schoolClassService, studentService, teacherService, management);
+                               managementMenu.start(sc);
+                               break;
+                           case TEACHER:
+                               Teacher teacher = (Teacher) user;
+                               TeacherMenu teacherMenu = new TeacherMenu(bulletinService, studentService, teacher);
+                               teacherMenu.start(sc);
+                               break;
 
-                       case STUDENT:
-                           Student student = (Student) user;
-                           StudentMenu studentMenu = new StudentMenu(student);
-                           studentMenu.start(sc);
+                           case STUDENT:
+                               Student student = (Student) user;
+                               StudentMenu studentMenu = new StudentMenu(student);
+                               studentMenu.start(sc);
+                               break;
+                       }
+                   }
+                   catch (BusinessException e) {
+                       System.out.println("Error: " + e.getMessage());
                    }
                    break;
 
@@ -81,6 +85,7 @@ public class Main {
 
                default:
                    System.out.println("Opção inválida!");
+                   break;
            }
        }
     }

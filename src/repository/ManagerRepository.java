@@ -11,7 +11,7 @@ public class ManagerRepository {
     private final List<Management> managements = new ArrayList<>();
 
     public ManagerRepository() {
-        Management management = new Management("Joao", "admin", 123);
+        Management management = new Management("Joao", "11111111111", "11111111");
         management.setRole(UserRole.MANAGER);
 
         managements.add(management);

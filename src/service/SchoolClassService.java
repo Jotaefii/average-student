@@ -1,6 +1,7 @@
 package service;
 
 import entities.SchoolClass;
+import excepetions.BusinessException;
 import repository.SchoolClassRepository;
 
 import java.util.List;
@@ -13,6 +14,9 @@ public class SchoolClassService {
     }
 
     public void criarTurma(String name, int room) {
+        if (schoolClassRepository.buscarPorSala(room) != null) {
+            throw new BusinessException("Número de sala já existente!");
+        }
         schoolClassRepository.adicionarTurma(name, room);
     }
 
@@ -21,7 +25,13 @@ public class SchoolClassService {
     }
 
     public SchoolClass buscarTurma(int sala) {
-        return schoolClassRepository.buscarPorSala(sala);
+        SchoolClass schoolClass = schoolClassRepository.buscarPorSala(sala);
+
+        if (schoolClass == null) {
+            throw new BusinessException("Turma não encontrada!");
+        }
+
+        return schoolClass;
     }
 
     public boolean editaTurma(String nome, int sala) {

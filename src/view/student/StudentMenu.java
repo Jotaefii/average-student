@@ -1,6 +1,7 @@
 package view.student;
 
 import entities.Student;
+import util.InputUtils;
 
 import java.util.Scanner;
 
@@ -12,9 +13,7 @@ public class StudentMenu {
     }
 
     public void start(Scanner sc) {
-
-        int opcao = 1;
-        while (opcao != 0) {
+        while (true) {
             System.out.println();
             System.out.println("╔═══════════════════════════════════════════╗");
             System.out.println("         Estudante " + student.getNome()      );
@@ -28,21 +27,23 @@ public class StudentMenu {
             System.out.println("0 - Sair");
 
             System.out.println("═════════════════════════════════════════════");
-            System.out.print("Escolha uma opção: ");
-            opcao = sc.nextInt();
-            sc.nextLine();
+            int opcao = InputUtils.readInt(sc, "Opção: ");
 
             switch (opcao) {
                 case 1 -> myProfile();
                 case 2 -> myClass();
                 case 3 -> System.out.println(student.getBulletin());
-                default -> opcao = 0;
+                case 0 -> {
+                    return;
+                }
+                default -> System.out.println("Opção inválida!");
             }
         }
     }
 
     private void myProfile() {
-        System.out.println("\n---------------------------------------------");
+        System.out.println("\nMEU PERFIL");
+        System.out.println("---------------------------------------------");
         System.out.println("Nome: " + student.getNome());
         System.out.println("CPF: " + student.getCpf());
         System.out.println("Senha: " + student.getSenha());
